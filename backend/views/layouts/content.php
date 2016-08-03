@@ -24,6 +24,11 @@ use dmstr\widgets\Alert;
         <?=
         Breadcrumbs::widget(
             [
+                'homeLink' => [
+                    'label' => 'Home',  // required
+                    'url' => './',      // optional, will be processed by Url::to()
+                    'template' => '<li><i class="fa fa-home"> </i> {link}</li>', // optional, if not set $this->itemTemplate will be used
+                ],
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]
         ) ?>
@@ -35,13 +40,7 @@ use dmstr\widgets\Alert;
     </section>
 </div>
 
-<footer class="main-footer">
-    <div class="pull-right hidden-xs">
-        <b>Version</b> 2.0
-    </div>
-    <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-    reserved.
-</footer>
+
 
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
