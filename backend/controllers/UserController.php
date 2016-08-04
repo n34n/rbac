@@ -8,6 +8,9 @@ use backend\models\search\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use mdm\admin\components\AccessControl;
+//use yii\filters\AccessControl;
+//use yii\web\ForbiddenHttpException;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -23,9 +26,34 @@ class UserController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
+                                'delete' => ['POST'],
+                             ],
+             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                //'only'  => ['index', 'view', 'create', 'update', 'changepwd', 'delete'],
+/*                 'rules' => [
+                                [
+                                    'actions' => ['index', 'view', 'create', 'update', 'changepwd', 'delete'],
+                                    'allow'   => true,
+                                    'roles'   => ['admin', '用户管理'],
+                                ], 
+                    
+                                [
+                                    'actions' => ['index', 'view'],
+                                    'allow'   => true,
+                                    'roles'   =>['用户查看'],
+                                ],
+                    
+                                [
+                                    'actions' => ['index', 'view', 'create', 'update', 'changepwd',],
+                                    'allow'   => true,
+                                    'roles'   => ['用户编辑'],
+                                ],                    
+                            ],*/
+                
+                        ], 
+
         ];
     }
 
@@ -63,15 +91,25 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model = new User();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->generateAuthKey();
+            $model->auth_key = $model->getAuthKey();
+            $model->setPassword($_POST['User']['password']);
+            $model->status = $_POST['User']['status'];
+            $model->created_at = $model->updated_at = time();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        }else{
+            $errors = $model->errors;
         }
+        
+        return $this->render('create', [
+            'model' => $model,
+        ]);            
+
     }
 
     /**
@@ -83,8 +121,9 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->updated_at = time();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -92,6 +131,20 @@ class UserController extends Controller
             ]);
         }
     }
+    
+    public function actionChangepwd($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->updated_at = time();
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('changepwd', [
+                'model' => $model,
+            ]);
+        }
+    }    
 
     /**
      * Deletes an existing User model.

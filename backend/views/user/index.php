@@ -13,10 +13,10 @@ $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-<div class="row">
+
 <div class="box">
     <div class="box-header with-border">
-        <?= Html::a('<i class="fa fa-plus-circle"> </i> Create User', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
+        <?= Html::a('<i class="fa fa-plus-circle"> </i> Create', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
         
         <div class="box-tools">
             <?php $form = ActiveForm::begin([
@@ -91,9 +91,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'enableSorting' => false,
                 ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                        'template' => '{view}&nbsp;&nbsp;{update}&nbsp;&nbsp;{changepwd}&nbsp;&nbsp;{delete}',
+                        'buttons' => [
+                            'changepwd' => function ($url, $model, $key) {
+                                return  Html::a('<span class="glyphicon glyphicon-lock"></span>', $url, ['title' => '修改密码'] ) ;
+                            },
+                            ],                    
+                ],
         ],
     ]); ?>
 <?php Pjax::end(); ?>
-</div>
 </div>
