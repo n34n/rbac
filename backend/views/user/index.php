@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\widgets\ActiveForm;
+
+//use mdm\admin\components\AccessControl;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -16,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="box">
     <div class="box-header with-border">
+
         <?= Html::a('<i class="fa fa-plus-circle"> </i> Create', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
         
         <div class="box-tools">
@@ -79,8 +82,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 
                  'status' => [
                     'attribute' => 'status',
+                    //'template' => '<span class="label label-success">{value}</span>',
+                     'format' => 'html',
                     'value'=> function($model){
-                        return  $model->status==10?'正常':'禁用';
+                        return  $model->status==10?'<span class="label label-success">正常</span>':'<span class="label label-danger">禁用</span>';
                     },
                     'enableSorting' => false,
                 ],
@@ -93,12 +98,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 [
                     'class' => 'yii\grid\ActionColumn',
-                        'template' => '{view}&nbsp;&nbsp;{update}&nbsp;&nbsp;{changepwd}&nbsp;&nbsp;{delete}',
+                       /*  'template' => '{view}&nbsp;&nbsp;{update}&nbsp;&nbsp;{changepwd}&nbsp;&nbsp;{delete}',
+                       'template' => function(){
+                            $template = '';
+                            if(1==1){
+                                $template .= '{view}&nbsp;&nbsp;';
+                            }
+                            return $template;
+                         }, 
+                    	'auth'=>[
+        					'update'=>function($url, $model, $key){
+        						//这里任意判断，只要不return true，就会认为无权限
+        					}
+        				 ], */
+                        'template' => $template,
+                         
                         'buttons' => [
                             'changepwd' => function ($url, $model, $key) {
+                                
                                 return  Html::a('<span class="glyphicon glyphicon-lock"></span>', $url, ['title' => '修改密码'] ) ;
                             },
-                            ],                    
+                         ],                    
                 ],
         ],
     ]); ?>

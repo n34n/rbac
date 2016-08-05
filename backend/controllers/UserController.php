@@ -26,33 +26,12 @@ class UserController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                                'delete' => ['POST'],
-                             ],
+                       //'delete' => ['POST'],
+                 ],
              ],
             'access' => [
                 'class' => AccessControl::className(),
-                //'only'  => ['index', 'view', 'create', 'update', 'changepwd', 'delete'],
-/*                 'rules' => [
-                                [
-                                    'actions' => ['index', 'view', 'create', 'update', 'changepwd', 'delete'],
-                                    'allow'   => true,
-                                    'roles'   => ['admin', '用户管理'],
-                                ], 
-                    
-                                [
-                                    'actions' => ['index', 'view'],
-                                    'allow'   => true,
-                                    'roles'   =>['用户查看'],
-                                ],
-                    
-                                [
-                                    'actions' => ['index', 'view', 'create', 'update', 'changepwd',],
-                                    'allow'   => true,
-                                    'roles'   => ['用户编辑'],
-                                ],                    
-                            ],*/
-                
-                        ], 
+             ], 
 
         ];
     }
@@ -65,10 +44,25 @@ class UserController extends Controller
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
+        $template = '';
+        if(Yii::$app->user->can('用户查看')){
+            $template = '{view}';
+        }
+        
+        if(Yii::$app->user->can('用户编辑')){
+            $template = '{view}&nbsp;&nbsp;{update}&nbsp;&nbsp;{changepwd}';
+        }   
+        
+        if(Yii::$app->user->can('用户管理') || Yii::$app->user->can('admin')){
+            $template = '{view}&nbsp;&nbsp;{update}&nbsp;&nbsp;{changepwd}&nbsp;&nbsp;{delete}';
+        }        
+        
+       //echo '123'.$template;die();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'template' => $template,
         ]);
     }
 
@@ -101,7 +95,7 @@ class UserController extends Controller
             $model->status = $_POST['User']['status'];
             $model->created_at = $model->updated_at = time();
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }else{
             $errors = $model->errors;
         }
@@ -122,6 +116,7 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->status = $_POST['User']['status'];
             $model->updated_at = time();
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
@@ -138,7 +133,7 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->updated_at = time();
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('changepwd', [
                 'model' => $model,

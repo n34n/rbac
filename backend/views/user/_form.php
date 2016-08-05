@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\User */
@@ -12,9 +13,16 @@ use yii\widgets\ActiveForm;
 <div class="row">
     <div class="col-md-8">
         <div class="box box-primary">
+    <?php $form = ActiveForm::begin(
+            [
+                'options'     => ['class'=>'form-horizontal'],
+                'fieldConfig' => [
+                    'template'      => '{label}<div class="col-sm-10" style="padding-right:30px">{input}</div><div style="margin:8px 0 0 145px">{error}</div>',
+                    'labelOptions'  => ['class' => 'col-sm-2 control-label'],
+                 ],
+            ]
+        ); ?>
         <div class="box-body">
-    <?php $form = ActiveForm::begin(); ?>
-
     <?php  
         if($model->isNewRecord)
         {
@@ -36,12 +44,11 @@ use yii\widgets\ActiveForm;
     
     <?= $form->field($model, 'status')->dropDownList(['10' => '正常', '0' => '禁用']) ?>
     
-    <div class="form-group" style="padding-top: 15px">
-        <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-plus-circle"> </i> Create' : '<i class="fa fa-pencil"> </i> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+        <div class="form-group" style="padding: 8px 0 0 145px">
+            <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-plus-circle"> </i> Create' : '<i class="fa fa-pencil"> </i> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
+        </div>
+    <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>
