@@ -34,13 +34,21 @@ return [
             'name' => 'advanced-backend',
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
+            //'traceLevel' => YII_DEBUG ? 3 : 0,
+/*             'targets' => 
+            [   
                 [
+                    'class' => 'backend\components\DbTarget',
+                    'levels' => ['trace'],
+                    'categories' => ['yii\base\Controller\Controller::runAction'], 
+                    //'except' => ['yii\*',],
+                ],          
+                 'file'=>[
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
-                ],
-            ],
+                    'categories' => ['yii\db\*'],
+                ],            
+            ], */
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

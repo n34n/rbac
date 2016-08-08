@@ -8,5 +8,17 @@ return [
         'authManager' => [
         	'class' => 'yii\rbac\DbManager',
         ],
+        'log' => [
+            //'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' =>
+            [
+                'db' => [
+                    'class' => 'backend\components\DbTarget',//'yii\log\DbTarget',
+                    'levels' => ['trace'],
+                    //'except' => ['gii','user-log'],
+                    'categories' => ['yii\base\Controller::runAction'],
+                ]
+            ],
+        ],        
     ],
 ];

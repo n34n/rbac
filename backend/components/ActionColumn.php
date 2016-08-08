@@ -1,10 +1,9 @@
 <?php
-namespace common\components;
+namespace backend\components;
 
 use Yii;
 use Closure;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 
 class ActionColumn extends \yii\grid\ActionColumn
