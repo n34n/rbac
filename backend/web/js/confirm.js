@@ -13,7 +13,7 @@ yii.confirm = function (message, ok, cancel) {
                     label: "Confirm",
                 },
                 cancel: {
-                    label: "Cancel"
+                    label: "Cancel",
                 }
             },
             callback: function (confirmed) {

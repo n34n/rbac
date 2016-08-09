@@ -15,7 +15,7 @@ return [
                 'db' => [
                     'class' => 'backend\components\DbTarget',//'yii\log\DbTarget',
                     'levels' => ['trace'],
-                    //'except' => ['gii','user-log'],
+                    //'except' => ['*index'],
                     'categories' => ['yii\base\Controller::runAction'],
                 ]
             ],

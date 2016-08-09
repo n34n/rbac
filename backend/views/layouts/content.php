@@ -25,7 +25,7 @@ use dmstr\widgets\Alert;
         Breadcrumbs::widget(
             [
                 'homeLink' => [
-                    'label' => 'Home',  // required
+                    'label' => Yii::t('backend', 'Home'),  // required
                     'url' => './',      // optional, will be processed by Url::to()
                     'template' => '<li><i class="fa fa-home"> </i> {link}</li>', // optional, if not set $this->itemTemplate will be used
                 ],

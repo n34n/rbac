@@ -21,7 +21,7 @@ $fieldOptions2 = [
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>Admin</b>LTE</a>
+            <img src="images/logo-db.png" title="NXshop Backend Management" alt="NXshop Backend Management" />
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

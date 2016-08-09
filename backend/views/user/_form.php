@@ -26,26 +26,26 @@ use yii\widgets\Pjax;
     <?php  
         if($model->isNewRecord)
         {
-            echo $form->field($model, 'username')->textInput(['maxlength' => true]);
+            echo $form->field($model, 'username')->textInput(['maxlength' => true])->label(Yii::t('backend', 'Username'));
         }else{
-            echo $form->field($model, 'username',['inputOptions' => ['class'=>'form-control','disabled'=>'']])->textInput(['maxlength' => true]);
+            echo $form->field($model, 'username',['inputOptions' => ['class'=>'form-control','disabled'=>'']])->textInput(['maxlength' => true])->label(Yii::t('backend', 'Username'));
         }
     ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true])->label(Yii::t('backend', 'Email')); ?>
 
-    <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'mobile')->textInput(['maxlength' => true])->label(Yii::t('backend', 'Mobile')); ?>
     
     <?php if($model->isNewRecord)
           {
-              echo $form->field($model, 'password')->passwordInput(['maxlength' => true]);
+              echo $form->field($model, 'password')->passwordInput(['maxlength' => true])->label(Yii::t('backend', 'Password'));;
           }
     ?>
     
-    <?= $form->field($model, 'status')->dropDownList(['10' => '正常', '0' => '禁用']) ?>
+    <?= $form->field($model, 'status')->dropDownList(['10' => Yii::t('backend', 'Approved'), '0' => Yii::t('backend', 'Denied')])->label(Yii::t('backend', 'Status')); ?>
     
         <div class="form-group" style="padding: 8px 0 0 145px">
-            <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-plus-circle"> </i> Create' : '<i class="fa fa-pencil"> </i> Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-plus-circle"> </i> '.Yii::t('backend', 'Create').'' : '<i class="fa fa-pencil"> </i> '.Yii::t('backend', 'Update').'', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
         </div>
     <?php ActiveForm::end(); ?>

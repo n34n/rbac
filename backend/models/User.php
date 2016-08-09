@@ -60,7 +60,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+/*     public function attributeLabels()
     {
         return [
             'id' => '自增ID',
@@ -75,7 +75,7 @@ class User extends \yii\db\ActiveRecord
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
         ];
-    }
+    } */
     
     /**
      * @inheritdoc

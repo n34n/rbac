@@ -15,6 +15,7 @@ class UserLogSearch extends UserLog
     /**
      * @inheritdoc
      */
+    public $skey;
     public function rules()
     {
         return [
@@ -42,11 +43,18 @@ class UserLogSearch extends UserLog
     public function search($params)
     {
         $query = UserLog::find();
+        
+        if(!isset($_GET['sort'])){
+            $query->orderBy('log_time DESC');
+        }        
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pagesize' => '10',
+            ],
         ]);
 
         $this->load($params);
@@ -63,13 +71,9 @@ class UserLogSearch extends UserLog
             'log_time' => $this->log_time,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'action', $this->action])
-            ->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'ip', $this->ip])
-            ->andFilterWhere(['like', 'agent', $this->agent])
-            ->andFilterWhere(['like', 'get', $this->get])
-            ->andFilterWhere(['like', 'post', $this->post]);
+        $skey = Yii::$app->request->get('UserLogSearch')['skey'];
+        $query->andFilterWhere(['like', 'username',  $skey]);
+        $query->orFilterWhere(['like', 'action',  $skey]);
 
         return $dataProvider;
     }

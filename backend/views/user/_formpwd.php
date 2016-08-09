@@ -15,10 +15,10 @@ use yii\widgets\ActiveForm;
         <div class="box-body">
     <?php $form = ActiveForm::begin(); ?>
     
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])->label(Yii::t('backend', 'New Password')); ?>
     
     <div class="form-group" style="padding-top: 15px">
-        <?= Html::submitButton('<i class="fa fa-lock"> </i> Change Password', ['class' => 'btn btn-warning']) ?>
+        <?= Html::submitButton('<i class="fa fa-lock"> </i> '.Yii::t('backend', 'Change Password').'', ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
