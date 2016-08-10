@@ -26,7 +26,7 @@ class LanguageController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
-            ],
+            ],          
         ];
     }
 
@@ -52,8 +52,9 @@ class LanguageController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -71,9 +72,9 @@ class LanguageController extends Controller
             $model->icon = UploadedFile::getInstance($model, 'icon');
             if ($model->icon && $model->icon->tempName) {
                 $filename = '../../public/icon/language/' . $model->code . '.' . $model->icon->extension;
-                $model->icon->saveAs($filename);
+                //$model->icon->saveAs($filename);
             }
-
+            //$model->attachImage($filename);
             $model->icon = $filename;
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);

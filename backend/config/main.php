@@ -15,7 +15,7 @@ return [
     'modules' => [
         "ctl" => [        
             "class" => "mdm\admin\Module",   
-        ],
+        ],      
     ],
     'aliases' => [    
         "@mdm/admin" => "@vendor/mdmsoft/yii2-admin",

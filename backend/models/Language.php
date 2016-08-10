@@ -20,7 +20,7 @@ class Language extends \yii\db\ActiveRecord
     {
         return '{{%language}}';
     }
-
+    
     /**
      * @inheritdoc
      */
