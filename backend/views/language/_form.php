@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Language */
@@ -26,7 +27,27 @@ use yii\widgets\ActiveForm;
     
     <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'icon')->fileInput() ?>
+    <?php //$form->field($model, 'icon')->fileInput() ?>
+    
+    <?= $form->field($model, 'icon')->widget(FileInput::classname(), [
+            'options' => ['accept' => 'image/*'],
+            'pluginOptions' => [
+                'showPreview' => true,
+                'showCaption' => true,
+                'showRemove' => true,
+                'showUpload' => false,
+/*                 'initialPreview'=>[
+                    "http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg",
+                ],                
+                'initialPreviewAsData'=>true,
+                'initialCaption'=>"The Moon and the Earth",
+                'initialPreviewConfig' => [
+                    ['caption' => 'Moon.jpg', 'size' => '873727', 'url'=>'http://localhost/avatar/delete'],
+                ],                
+                'overwriteInitial'=>false, */
+    
+            ]
+    ]);?>
     
     <?= $form->field($model, 'order')->textInput(['maxlength' => true]) ?>
     

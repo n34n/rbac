@@ -13,7 +13,7 @@ return [
     'bootstrap' => ['log'],
     'language'  => 'zh',
     'modules' => [
-        "ctl" => [        
+        "ctl" => [
             "class" => "mdm\admin\Module",   
         ],      
     ],
