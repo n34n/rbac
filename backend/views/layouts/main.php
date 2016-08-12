@@ -58,43 +58,9 @@ if (Yii::$app->controller->action->id === 'login') {
         ) ?>
 
     </div>
-
+    
     <?php $this->endBody() ?>
-
     </body>
     </html>
     <?php $this->endPage() ?>
-    <script>
-    yii.allowAction = function ($e) {
-        var message = $e.data('confirm');
-        return message === undefined || yii.confirm(message, $e);
-    };
-    // --- Delete action (bootbox) ---
-    yii.confirm = function (message, ok, cancel) {
-     
-        bootbox.confirm(
-            {
-                message: message,
-                buttons: {
-                    confirm: {
-                        label: "<?= Yii::t('backend', 'Confirm')?>",
-                    },
-                    cancel: {
-                        label: "<?= Yii::t('backend', 'Cancel')?>",
-                    }
-                },
-                callback: function (confirmed) {
-                    if (confirmed) {
-                        !ok || ok();
-                    } else {
-                        !cancel || cancel();
-                    }
-                }
-            }
-        );
-        // confirm will always return false on the first call
-        // to cancel click handler
-        return false;
-    }
-	</script>
 <?php } ?>

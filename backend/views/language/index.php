@@ -7,28 +7,45 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\search\LanguageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Languages';
+$this->title = Yii::t('backend', 'Languages');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="language-index">
+<div class="box">
+    <div class="box-header with-border">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        
+    <?php 
+        if(Yii::$app->user->can('语言设置')){
+            echo Html::a('<i class="fa fa-plus-circle"> </i> '.Yii::t('backend', 'Create').'', ['create'], ['class' => 'btn btn-success btn-sm']);
+        }else{
+            echo '<a class="btn btn-sm"></a>';
+        }
+    ?>
 
-    <p>
-        <?= Html::a('Create Language', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+
     <?= GridView::widget([
+        'layout' => '<div class="box-body">{items}</div>
+                 <div class="box-footer clearfix pull-right">{pager}</div>',        
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
+            'icon' => [
+                'attribute' => 'icon',
+                'format' => 'html',
+                'value'  => function($model){
+                    return Html::img(FILE_PATH.$model->icon, array('width'=>'30px'));
+                },
+                'enableSorting' => false,
+             ],
+            'code',
             'language',
-            'icon',
+            //'icon',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+</div>
 </div>

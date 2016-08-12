@@ -42,11 +42,17 @@ class LanguageSearch extends Language
     public function search($params)
     {
         $query = Language::find();
+        if(!isset($_GET['sort'])){
+            $query->orderBy('ID DESC');
+        }        
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pagesize' => '10',
+            ],            
         ]);
 
         $this->load($params);

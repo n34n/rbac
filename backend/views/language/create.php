@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Language */
 
-$this->title = 'Create Language';
-$this->params['breadcrumbs'][] = ['label' => 'Languages', 'url' => ['index']];
+$this->title = Yii::t('backend', 'Create').' '.Yii::t('backend', 'Languages');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Languages'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

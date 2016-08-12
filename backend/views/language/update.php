@@ -5,17 +5,16 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Language */
 
-$this->title = 'Update Language: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Languages', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = Yii::t('backend', 'Update').' '.Yii::t('backend', 'Languages');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Languages'), 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="language-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
+        'src'   => $src,
     ]) ?>
 
 </div>

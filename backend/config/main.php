@@ -14,8 +14,8 @@ return [
     'language'  => 'zh',
     'modules' => [
         "ctl" => [
-            "class" => "mdm\admin\Module",   
-        ],      
+            "class" => "mdm\admin\Module",
+        ],
     ],
     'aliases' => [    
         "@mdm/admin" => "@vendor/mdmsoft/yii2-admin",
@@ -34,9 +34,7 @@ return [
             // this is the name of the session cookie used for login on the backend
             'name' => 'advanced-backend',
         ],
-        'log' => [
 
-        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],

@@ -8,7 +8,11 @@ use backend\models\search\LanguageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
+//use yii\web\UploadedFile;
+use common\components\Upload;
+//use yii\imagine\Image;
+//use yii\helpers\Url;
+use mdm\admin\components\AccessControl;
 
 /**
  * LanguageController implements the CRUD actions for Language model.
@@ -18,6 +22,8 @@ class LanguageController extends Controller
     /**
      * @inheritdoc
      */
+    public $flag_path = 'images/flag/';
+    
     public function behaviors()
     {
         return [
@@ -26,7 +32,10 @@ class LanguageController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
-            ],          
+            ],     
+            'access' => [
+                'class' => AccessControl::className(),
+            ],            
         ];
     }
 
@@ -53,8 +62,11 @@ class LanguageController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $src = FILE_PATH.$model->icon;
+
         return $this->render('view', [
             'model' => $model,
+            'src'   => $src,
         ]);
     }
 
@@ -68,14 +80,8 @@ class LanguageController extends Controller
         $model = new Language();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            
-            $model->icon = UploadedFile::getInstance($model, 'icon');
-            if ($model->icon && $model->icon->tempName) {
-                $filename = '../../public/icon/language/' . $model->code . '.' . $model->icon->extension;
-                //$model->icon->saveAs($filename);
-            }
-            //$model->attachImage($filename);
-            $model->icon = $filename;
+            $model->icon = Upload::uploadImg($model,'icon',$this->flag_path);
+            $model->status = $_POST['Language']['status'];
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -93,13 +99,19 @@ class LanguageController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model      = $this->findModel($id);
+        $filename   = $model->icon;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->icon = Upload::uploadImg($model,'icon',$this->flag_path,'update',$filename);
+            $model->status = $_POST['Language']['status'];
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $src = FILE_PATH.$model->icon;
             return $this->render('update', [
                 'model' => $model,
+                'src'   => $src,
             ]);
         }
     }
@@ -112,10 +124,27 @@ class LanguageController extends Controller
      */
     public function actionDelete($id)
     {
+        $model      = $this->findModel($id);
+        $filename   = $model->icon;
+        Upload::deleteImg($filename);
+        
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
+    
+    public function actionDeleteimg($id)
+    {
+        $model = $this->findModel($id);
+        Upload::deleteImg($model->icon);
+        $model->icon = '';
+        $model->save();
+        echo json_encode("succ");
+    }
+    
+    public function actionUploadimg($id)
+    {
+        echo json_encode("succ");
+    }    
 
     /**
      * Finds the Language model based on its primary key value.
@@ -132,4 +161,6 @@ class LanguageController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+
 }

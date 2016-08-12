@@ -28,6 +28,7 @@ class Language extends \yii\db\ActiveRecord
     {
         return [
             [['language'], 'required'],
+            [['language'], 'unique'],
             [['language'], 'string', 'max' => 20],
             [['code'], 'required'],
             [['code'], 'unique'],
@@ -43,9 +44,7 @@ class Language extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'language' => '语言',
-            'icon' => '图标',
+
         ];
     }
 }

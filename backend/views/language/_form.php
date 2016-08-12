@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Language */
@@ -23,33 +24,68 @@ use kartik\file\FileInput;
         ]        
         ); ?>
     <div class="box-body">
-    <?= $form->field($model, 'language')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'language')->textInput(['maxlength' => true])->label(Yii::t('backend', 'Language')); ?>
     
-    <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'code')->textInput(['maxlength' => true])->label(Yii::t('backend', 'Code')); ?>
 
     <?php //$form->field($model, 'icon')->fileInput() ?>
     
-    <?= $form->field($model, 'icon')->widget(FileInput::classname(), [
-            'options' => ['accept' => 'image/*'],
-            'pluginOptions' => [
-                'showPreview' => true,
-                'showCaption' => true,
-                'showRemove' => true,
-                'showUpload' => false,
-/*                 'initialPreview'=>[
-                    "http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg",
-                ],                
-                'initialPreviewAsData'=>true,
-                'initialCaption'=>"The Moon and the Earth",
-                'initialPreviewConfig' => [
-                    ['caption' => 'Moon.jpg', 'size' => '873727', 'url'=>'http://localhost/avatar/delete'],
-                ],                
-                'overwriteInitial'=>false, */
+    <?php
+      if($model->icon == ''){
+          echo $form->field($model, 'icon')->label(Yii::t('backend', 'Icon'))->widget(FileInput::classname(), [
+                    'name' => 'icon',
+                    'options' => ['accept' => 'image/*'],
+                    'pluginOptions' => [
+                        'showPreview' => true,
+                        'showCaption' => true,
+                        'showRemove' => false,
+                        'showUpload' => false,
+                        //'uploadUrl' => 'index.php?r=language/uploadimg',
+                        //'showZoom' => false,
+                        //'uploadUrl' => Url::to(['/rbac/uploads/images/flag']),
+/*                         'uploadExtraData' => [
+                            'album_id' => 20,
+                            'cat_id' => 'Nature'
+                        ],   */  
+/*                         'initialPreviewConfig '=> [
+                            ['size' => '873727', 'showZoom' => false],
+                        ], */
+                    ]
+          ]);
+      }else{
+          //echo Html::img($src, array('width'=>'50px'));
+          echo $form->field($model, 'icon')->label(Yii::t('backend', 'Icon'))->widget(FileInput::classname(), [
+              'name' => 'icon',
+              'options' => ['accept' => 'image/*'],
+              'pluginOptions' => [
+                  //'uploadUrl' => 'index.php?r=language/uploadimg',
+                  //'deleteUrl' => 'index.php?r=language/deleteimg',
+                  'showRemove' => false,
+                  'showUpload' => false,
+                  
+                  'initialPreview'=>[
+                      "$src",
+                  ],
+                  'initialPreviewAsData'=>true,
+                  'initialCaption'=>"",
+                  'initialPreviewConfig' => [
+                      [
+                          //'caption'=> 'desert.jpg',
+                          'showZoom' => false,
+                          //'width'=>'30px',
+                          //'height'=>'auto',
+                          'url'=> 'index.php?r=language/deleteimg&id='.$model->id,
+                          //'key'=>'100',
+                          
+                      ],
+                  ], 
+                  'overwriteInitial'=>true,
+              ]
+          ]);          
+      }
+    ?>
     
-            ]
-    ]);?>
-    
-    <?= $form->field($model, 'order')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'order')->textInput(['maxlength' => true])->label(Yii::t('backend', 'Order')) ?>
     
     <?= $form->field($model, 'status')->dropDownList(['10' => Yii::t('backend', 'Approved'), '0' => Yii::t('backend', 'Denied')])->label(Yii::t('backend', 'Status')); ?>
 
