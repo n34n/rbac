@@ -8,6 +8,7 @@ use backend\models\search\UserLogSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use mdm\admin\components\AccessControl;
 
 /**
  * UserLogController implements the CRUD actions for UserLog model.
@@ -26,6 +27,9 @@ class UserLogController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+            ],            
         ];
     }
 

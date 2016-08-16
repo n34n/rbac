@@ -43,11 +43,18 @@ class RoleSearch extends Role
     {
         $query = Role::find();
         $query->andWhere(['=', 'type', 1]);
+        
+        if(!isset($_GET['sort'])){
+            $query->orderBy('name ASC');
+        }
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pagesize' => '10',
+            ],            
         ]);
 
         $this->load($params);
@@ -65,10 +72,9 @@ class RoleSearch extends Role
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'rule_name', $this->rule_name])
-            ->andFilterWhere(['like', 'data', $this->data]);
+        $skey = Yii::$app->request->get('RoleSearch')['skey'];
+        $query->andFilterWhere(['like', 'name',  $skey]);
+        $query->orFilterWhere(['like', 'description',  $skey]);
 
         return $dataProvider;
     }

@@ -9,8 +9,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use mdm\admin\components\AccessControl;
-//use yii\filters\AccessControl;
-//use yii\web\ForbiddenHttpException;
 
 /**
  * UserController implements the CRUD actions for User model.

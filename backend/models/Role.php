@@ -24,8 +24,10 @@ use Yii;
  */
 class Role extends \yii\db\ActiveRecord
 {
+    public $_name;
     public $_roles;
     public $_permissions;
+    public $skey;
     /**
      * @inheritdoc
      */

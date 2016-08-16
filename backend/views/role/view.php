@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php 
                 if(Yii::$app->user->can('角色管理')){
                     echo Html::a('<i class="fa fa-plus-circle"> </i> '.Yii::t('backend', 'Create').'', ['create'], ['class' => 'btn btn-success btn-sm'])." ";
-                    echo Html::a('<i class="fa fa-pencil"> </i> '.Yii::t('backend', 'Update').'', ['update', 'name' => $model->name], ['class' => 'btn btn-primary btn-sm'])." ";
-                    echo Html::a('<i class="fa fa-trash-o"> </i> '.Yii::t('backend', 'Delete').'', ['delete', 'name' => $model->name], [
+                    echo Html::a('<i class="fa fa-pencil"> </i> '.Yii::t('backend', 'Update').'', ['update', 'id' => $model->name], ['class' => 'btn btn-primary btn-sm'])." ";
+                    echo Html::a('<i class="fa fa-trash-o"> </i> '.Yii::t('backend', 'Delete').'', ['delete', 'id' => $model->name], [
                         'class' => 'btn btn-danger btn-sm',
                         'data' => [
                             'confirm' => Yii::t('backend', 'Are you sure you want to delete this item?'),
@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <label class="control-label"><?= Yii::t('backend', 'Permissions') ?></label>
             <?php $permissions= ArrayHelper::map($permissions,'name','name'); ?>
             <?php $permissionschecked= ArrayHelper::map($permissionschecked,'child','child'); ?>
-            <?= Html::checkboxList('roles',$permissionschecked,$permissions,[
+            <?= Html::checkboxList('permissions',$permissionschecked,$permissions,[
                 'class'=> 'checkbox',
                 'separator' => '<br/>',
                 'itemOptions' => ['disabled'=>'']

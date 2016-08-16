@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\Permissions;
-use yii\base\Object;
+use mdm\admin\components\AccessControl;
 
 /**
  * RoleController implements the CRUD actions for Role model.
@@ -28,6 +28,9 @@ class RoleController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+            ],            
         ];
     }
 
@@ -57,7 +60,7 @@ class RoleController extends Controller
         
         //get roles
         $searchModel    = new RoleSearch();
-        $roles          = $searchModel->find('name')->Where(['=', 'type', 1])->all();
+        $roles          = $searchModel->find('name')->Where(['=', 'type', 1])->andWhere(['<>','name',$id])->all();
         
         //get checked roles
         $permission     = new Permissions();
@@ -72,7 +75,7 @@ class RoleController extends Controller
                         ->andWhere(['not like', 'name', 'debug'])
                         ->all(); 
         
-        //get checked roles
+        //get checked permissions
         $permission     = new Permissions();
         $permissionschecked   = $permission->find('child')->Where(['=', 'parent', $model->name])->all();        
         
@@ -104,20 +107,14 @@ class RoleController extends Controller
             if($_POST['Role']['_roles']){
                 $_rolesList         = $_POST['Role']['_roles'];
                 foreach ($_rolesList as $val){
-                    $rolechild = new Permissions();
-                    $rolechild->parent  = $model->name;
-                    $rolechild->child   = $val;
-                    $rolechild->save();
+                    $this->savePermissions($model->name,$val);
                 }                
             }
             
             if($_POST['Role']['_permissions']){
                 $_permissionsList   = $_POST['Role']['_permissions'];
                 foreach ($_permissionsList as $val){
-                    $rolechild = new Permissions();
-                    $rolechild->parent  = $model->name;
-                    $rolechild->child   = $val;
-                    $rolechild->save();
+                    $this->savePermissions($model->name,$val);
                 }
             }     
              
@@ -146,13 +143,58 @@ class RoleController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model          = $this->findModel(['=', 'name', $id]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            //delete permissions
+            $this->deletePermissions($_POST['Role']['_name']);
+           
+            $model->updated_at = time();
+            $model->save();
+            
+            if($_POST['Role']['_roles']){
+                $_rolesList         = $_POST['Role']['_roles'];
+                foreach ($_rolesList as $val){
+                    $this->savePermissions($model->name,$val);
+                }
+            }
+            
+            if($_POST['Role']['_permissions']){
+                $_permissionsList   = $_POST['Role']['_permissions'];
+                foreach ($_permissionsList as $val){
+                    $this->savePermissions($model->name,$val);
+                }
+            }            
+            
             return $this->redirect(['view', 'id' => $model->name]);
         } else {
+            //get roles
+            $searchModel    = new RoleSearch();
+            $roles          = $searchModel->find('name')->Where(['=', 'type', 1])->andWhere(['<>','name',$id])->all();
+            
+            //get checked roles
+            $permission     = new Permissions();
+            $roleschecked   = $permission->find('child')->Where(['=', 'parent', $model->name])->all();
+            
+            //get permissions
+            $searchModel    = new RoleSearch();
+            $permissions    = $searchModel->find()
+            ->Where(['=', 'type', 2])
+            ->andWhere(['not like', 'name', 'ctl'])
+            ->andWhere(['not like', 'name', 'gii'])
+            ->andWhere(['not like', 'name', 'debug'])
+            ->all();
+            
+            //get checked permissions
+            $permission     = new Permissions();
+            $permissionschecked   = $permission->find('child')->Where(['=', 'parent', $model->name])->all();
+           
             return $this->render('update', [
-                'model' => $model,
+                'model'         => $model,
+                'roles'         => $roles,
+                'roleschecked'  => $roleschecked,
+                'permissions'   => $permissions,
+                'permissionschecked'   => $permissionschecked,
             ]);
         }
     }
@@ -165,6 +207,7 @@ class RoleController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->deletePermissions($id);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -184,5 +227,27 @@ class RoleController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    protected function savePermissions($parent,$child)
+    {
+        $model = new Permissions();
+        $isExsit = $model::find()->where(['=', 'parent', $parent])
+        ->andWhere(['=', 'child', $child])->one();
+        if(!$isExsit){
+            $model->parent  = $parent;
+            $model->child   = $child;            
+            $model->save();
+        }      
+    }
+    
+    protected function deletePermissions($parent)
+    {
+        $model = new Permissions();
+        $condition = 'parent=:parent';
+        $condition .= ' and child not like "%ctl%"';
+        $condition .= ' and child not like "%gii%"';
+        $condition .= ' and child not like "%debug%"';
+        $model->deleteAll($condition, array(':parent'=> $parent));
     }
 }
