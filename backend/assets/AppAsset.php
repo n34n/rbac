@@ -16,10 +16,6 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/bootbox.js',
-        'js/confirm.js', 
-        
-        //'js/confirmation-init.js',
-        //'js/bootstrap-confirmation.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

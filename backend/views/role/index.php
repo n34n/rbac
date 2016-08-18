@@ -49,7 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>         
     </div>
     
-    
     <?= GridView::widget([
         'layout' => '<div class="bg-light-blue disabled color-palette alert" style="margin-bottom:0">{summary}</div>
                  <div class="box-body">{items}</div>

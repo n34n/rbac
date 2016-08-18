@@ -10,10 +10,10 @@ yii.confirm = function (message, ok, cancel) {
             message: message,
             buttons: {
                 confirm: {
-                    label: "Confirm",
+                    label: _confirm,
                 },
                 cancel: {
-                    label: "Cancel",
+                    label: _cancel,
                 }
             },
             callback: function (confirmed) {
