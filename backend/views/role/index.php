@@ -53,14 +53,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'layout' => '<div class="bg-light-blue disabled color-palette alert" style="margin-bottom:0">{summary}</div>
                  <div class="box-body">{items}</div>
                  <div class="box-footer clearfix pull-right">{pager}</div>',
-        'options' => ['class' => 'box-body'],        
+        'options' => ['class' => 'box-body'],  
+        'summary'=> Yii::t('backend', 'Showing {begin}-{end} of {totalCount} items.'),
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
-            'name',
-            'description:ntext',
+            'name' => [
+                'attribute' => 'name',
+                'label' => Yii::t('backend', 'Name'),
+                //'enableSorting' => false,
+            ],
+
+            'description' => [
+                'attribute' => 'description',
+                'label' => Yii::t('backend', 'Description'),
+                'format' => 'ntext',
+                //'enableSorting' => false,
+            ],            
             // 'created_at',
             // 'updated_at',
 

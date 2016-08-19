@@ -23,6 +23,8 @@ class Upload extends UploadedFile
             $uploadfile = $rootpath.$filepath.$filename;
             $file->saveAs($uploadfile);
             return $filepath.$filename;
+        }else{
+            return $filename;
         }
     }
     

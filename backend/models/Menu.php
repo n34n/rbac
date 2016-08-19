@@ -26,6 +26,7 @@ class Menu extends \yii\db\ActiveRecord
 {
     public $parent_name;
     public $act;
+    public $json;
 
     /**
      * @inheritdoc

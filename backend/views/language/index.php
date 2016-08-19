@@ -35,14 +35,40 @@ $this->params['breadcrumbs'][] = $this->title;
             'icon' => [
                 'attribute' => 'icon',
                 'format' => 'html',
+                'label' => Yii::t('backend', 'Icon'),
                 'value'  => function($model){
                     return Html::img(FILE_PATH.$model->icon, array('width'=>'30px'));
                 },
                 'enableSorting' => false,
              ],
-            'code',
-            'language',
-            //'icon',
+            
+            'code' => [
+                'attribute' => 'code',
+                'label' => Yii::t('backend', 'Code'),
+                'enableSorting' => false,
+            ],
+            
+            'language' => [
+                'attribute' => 'language',
+                'label' => Yii::t('backend', 'Language'),
+                'enableSorting' => false,
+            ],
+            
+             'status' => [
+                'attribute' => 'status',
+                 'label' => Yii::t('backend', 'Status'),
+                 'format' => 'html',
+                'value'=> function($model){
+                    return  $model->status==10?'<span class="label label-success">'.Yii::t('backend', 'Approved').'</span>':'<span class="label label-danger">'.Yii::t('backend', 'Denied').'</span>';
+                },
+                'enableSorting' => false,
+            ],
+            
+            'order' => [
+                'attribute' => 'order',
+                'label' => Yii::t('backend', 'Order'),
+                //'enableSorting' => false,
+            ],          
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

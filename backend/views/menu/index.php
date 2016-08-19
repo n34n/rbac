@@ -8,6 +8,7 @@ use yii\widgets\ActiveForm;
 use backend\models\Menu;
 use yii\helpers\Json;
 use mdm\admin\AutocompleteAsset;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model mdm\admin\models\Menu */
@@ -67,8 +68,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <tbody>
             <?php
                 foreach($mainmenu as $_menu){
+                    $json = json_decode($_menu['data']);
+                    $icon = '';
+                    if(isset($json->icon)){
+                        $icon = $json->icon;
+                    }
+
+                    //echo $json['icon'];
                     echo "<tr class='bg-gray disabled color-palette'>";
-                    echo "<td><i class='glyphicon glyphicon-tag'> </i> ".$_menu['name']."</td>"; 
+                    echo "<td><i class='".$icon."'>&nbsp;&nbsp;</i>".$_menu['name']."</td>"; 
                     echo '<td style="text-align:right;">
                             <a data-pjax="0" title="新增" href="index.php?r=menu/index&parent_name='.$_menu['name'].'"><span class="glyphicon glyphicon-plus-sign"></span></a> 
                             <a data-pjax="0" title="修改" href="index.php?r=menu/index&act=update&id='.$_menu['id'].'"><span class="glyphicon glyphicon-pencil"></span></a> 
@@ -78,8 +86,13 @@ $this->params['breadcrumbs'][] = $this->title;
     
                     if(isset($submenu[$_menu['id']])){
                         foreach($submenu[$_menu['id']] as $_submenu){
+                            $json = json_decode($_submenu['data']);
+                            $icon = '';
+                            if(isset($json->icon)){
+                                $icon = $json->icon;
+                            }                            
                             echo "<tr>";
-                            echo "<td style='padding-left:40px'><i class='glyphicon glyphicon-chevron-right'> </i> ".$_submenu['name']."</td>";
+                            echo "<td style='padding-left:40px'><i class='".$icon."'>&nbsp;&nbsp;</i>".$_submenu['name']."</td>";
                             echo '<td style="text-align:right;">
                                    
                                     <a data-pjax="0" title="修改" href="index.php?r=menu/index&act=update&id='.$_submenu['id'].'"><span class="glyphicon glyphicon-pencil"></span></a> 
@@ -88,9 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             echo "</tr>";
                         }                   
                     }
-                    
 
-                    
                 };
             ?>
             </tbody>

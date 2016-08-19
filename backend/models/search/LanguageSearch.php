@@ -43,7 +43,7 @@ class LanguageSearch extends Language
     {
         $query = Language::find();
         if(!isset($_GET['sort'])){
-            $query->orderBy('ID DESC');
+            $query->orderBy('Order ASC');
         }        
 
         // add conditions that should always apply here

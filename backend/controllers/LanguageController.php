@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\components\Upload;
 use mdm\admin\components\AccessControl;
+use yii\base\Object;
+use yii\web\Cookie;
 
 /**
  * LanguageController implements the CRUD actions for Language model.
@@ -42,6 +44,7 @@ class LanguageController extends Controller
      */
     public function actionIndex()
     {
+  
         $searchModel = new LanguageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -80,7 +83,7 @@ class LanguageController extends Controller
             $model->icon = Upload::uploadImg($model,'icon',$this->flag_path);
             $model->status = $_POST['Language']['status'];
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -100,6 +103,9 @@ class LanguageController extends Controller
         $filename   = $model->icon;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if(Upload::uploadImg($model,'icon',$this->flag_path,'update',$filename)){
+                
+            }
             $model->icon = Upload::uploadImg($model,'icon',$this->flag_path,'update',$filename);
             $model->status = $_POST['Language']['status'];
             $model->save();
@@ -142,6 +148,22 @@ class LanguageController extends Controller
     {
         echo json_encode("succ");
     }    
+    
+    public function actionChange($id)
+    {
+        $language=  Yii::$app->request->get('id');
+        if(isset($language)){
+            //\Yii::$app->session['language']=$language;
+            //$_COOKIE['language'] = $language;
+            $cookie = new Cookie();
+            $cookie->name = 'language';//cookie的名称
+            $cookie->expire = time() + 3600; //存活的时间
+            $cookie->httpOnly = true; //无法通过js读取cookie
+            $cookie->value = $language; //cookie的值
+            Yii::$app->response->getCookies()->add($cookie);  
+        }
+        $this->goBack(Yii::$app->request->headers['Referer']);
+    }
 
     /**
      * Finds the Language model based on its primary key value.

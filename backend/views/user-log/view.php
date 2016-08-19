@@ -6,37 +6,53 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\UserLog */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'User Logs', 'url' => ['index']];
+$this->title = Yii::t('backend', 'View').' '.Yii::t('backend', 'Logs');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'User').' '.Yii::t('backend', 'Logs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-log-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+<div class="box">
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'username',
-            'action',
-            'url:url',
-            'ip',
-            'agent',
-            'get:ntext',
-            'post:ntext',
-            'log_time:datetime',
+            'username' => [
+                'attribute' => 'username',
+                'label' => Yii::t('backend', 'Username'),
+            ],            
+            'action' => [
+                'attribute' => 'action',
+                'label' => Yii::t('backend', 'Action'),
+            ],            
+            'url' => [
+                'attribute' => 'url',
+                'label' => Yii::t('backend', 'URL'),
+                'format' => 'url',
+            ],            
+            'ip' => [
+                'attribute' => 'ip',
+                'label' => Yii::t('backend', 'IP'),
+            ],  
+            'agent' => [
+                'attribute' => 'agent',
+                'label' => Yii::t('backend', 'Agent'),
+            ],            
+            'get' => [
+                'attribute' => 'get',
+                'label' => Yii::t('backend', 'Get'),
+                'format' => 'ntext',
+            ], 
+            'post' => [
+                'attribute' => 'post',
+                'label' => Yii::t('backend', 'Post'),
+                'format' => 'ntext',
+            ],            
+            'log_time' => [
+                'attribute' => 'log_time',
+                'label' => Yii::t('backend', 'Date'),
+                'format' => 'datetime',
+            ],
         ],
     ]) ?>
 

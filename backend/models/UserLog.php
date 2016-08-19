@@ -42,21 +42,4 @@ class UserLog extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'username' => '用户名',
-            'action' => '动作',
-            'url' => 'url地址',
-            'ip' => 'ip地址',
-            'agent' => '浏览器',
-            'get' => 'get参数',
-            'post' => 'post参数',
-            'log_time' => '日期',
-        ];
-    }
 }

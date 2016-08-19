@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 /* @var $searchModel backend\models\search\UserLogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'User Logs';
+$this->title = Yii::t('backend', 'User').' '.Yii::t('backend', 'Logs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class='input-group input-group-sm' style='width: 300px;margin-top:5px;'>
                             <?= $form->field($searchModel, 'skey',[
                                   'options'=>['class'=>'input-group input-group-sm','style'=>'width: 300px;'],
-                                  'inputOptions' => ['placeholder' => 'Search Keyword','class' => 'form-control pull-right'],
+                                  'inputOptions' => ['placeholder' => Yii::t('backend', 'Search Keyword'),'class' => 'form-control pull-right'],
                                     ])->label(false); ?>
                              <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
@@ -49,6 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         
+    'summary'=> Yii::t('backend', 'Showing {begin}-{end} of {totalCount} items.'),
+    
         'options' => [
             'class' => 'box-body',
         ],
@@ -63,26 +65,31 @@ $this->params['breadcrumbs'][] = $this->title;
                 
                 'username' => [
                     'attribute' => 'username',
+                    'label' => Yii::t('backend', 'Username'),
                     'enableSorting' => false,
                 ],
                 
                  'action' => [
                      'attribute' => 'action',
+                     'label' => Yii::t('backend', 'Action'),
                      'enableSorting' => false,
                  ],
                 
                  'ip' => [
                      'attribute' => 'ip',
+                     'label' => Yii::t('backend', 'IP'),
                      'enableSorting' => false,
                  ],
                 
                  'agent' => [
                     'attribute' => 'agent',
+                     'label' => Yii::t('backend', 'Agent'),
                      'enableSorting' => false,
                 ],
                 
                 [
                     'attribute' => 'log_time',
+                    'label' => Yii::t('backend', 'Date'),
                     'format' => ['date', 'php:Y-m-d h:i:s'],
                     'enableSorting' => false,
                 ],
