@@ -151,6 +151,16 @@ class UserController extends Controller
 
         return $this->redirect(['index']);
     }
+    
+    
+    public function actionProfile()
+    {
+        $id = Yii::$app->user->id;
+        $model = $this->findModel($id);
+        return $this->render('profile', [
+            'model' => $model,
+        ]);
+    }
 
     /**
      * Finds the User model based on its primary key value.
