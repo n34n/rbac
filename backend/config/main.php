@@ -58,6 +58,10 @@ return [
                 'yii' => [
                     'class' => 'yii\i18n\DbMessageSource',
                     'sourceLanguage' => 'en',
+                ], 
+                'menu' => [
+                    'class' => 'yii\i18n\DbMessageSource',
+                    'sourceLanguage' => 'en',
                 ],                
             ],
         ],

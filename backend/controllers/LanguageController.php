@@ -149,6 +149,11 @@ class LanguageController extends Controller
         echo json_encode("succ");
     }    
     
+    
+    /**
+     * set language of cookie for backend user 
+     * @param $id
+     */
     public function actionChange($id)
     {
         $language=  Yii::$app->request->get('id');
@@ -157,7 +162,7 @@ class LanguageController extends Controller
             //$_COOKIE['language'] = $language;
             $cookie = new Cookie();
             $cookie->name = 'language';//cookie的名称
-            $cookie->expire = time() + 3600; //存活的时间
+            $cookie->expire = time() + 3600*24*30*365; //存活的时间
             $cookie->httpOnly = true; //无法通过js读取cookie
             $cookie->value = $language; //cookie的值
             Yii::$app->response->getCookies()->add($cookie);  
