@@ -120,4 +120,13 @@ return array (
       '@yii/imagine' => $vendorDir . '/yiisoft/yii2-imagine',
     ),
   ),
+  'hyii2/yii2-avatar' => 
+  array (
+    'name' => 'hyii2/yii2-avatar',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@hyii2/avatar' => $vendorDir . '/hyii2/yii2-avatar',
+    ),
+  ),
 );

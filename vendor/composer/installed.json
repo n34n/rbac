@@ -1458,5 +1458,47 @@
             "imagine",
             "yii2"
         ]
+    },
+    {
+        "name": "hyii2/yii2-avatar",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/org-yii-china/yii2-avatar.git",
+            "reference": "8307edcbb13217f2848549724cc052e6e28ba23e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/org-yii-china/yii2-avatar/zipball/8307edcbb13217f2848549724cc052e6e28ba23e",
+            "reference": "8307edcbb13217f2848549724cc052e6e28ba23e",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "*"
+        },
+        "time": "2016-07-29 02:01:19",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "hyii2\\avatar\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-4-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Xianan Huang",
+                "email": "xianan_huang@163.com"
+            }
+        ],
+        "description": "基于cropper的一款头像上传yii2组件",
+        "keywords": [
+            "extension",
+            "yii2"
+        ]
     }
 ]

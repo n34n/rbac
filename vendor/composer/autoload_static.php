@@ -38,6 +38,10 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
             'kartik\\file\\' => 12,
             'kartik\\base\\' => 12,
         ),
+        'h' => 
+        array (
+            'hyii2\\avatar\\' => 13,
+        ),
         'd' => 
         array (
             'dmstr\\' => 6,
@@ -108,6 +112,10 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
         'kartik\\base\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base',
+        ),
+        'hyii2\\avatar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hyii2/yii2-avatar',
         ),
         'dmstr\\' => 
         array (
