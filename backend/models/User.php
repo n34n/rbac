@@ -24,6 +24,7 @@ class User extends \yii\db\ActiveRecord
      * @inheritdoc
      */
     public $password;
+    public $avatar;
     
     public static function tableName()
     {
@@ -211,5 +212,14 @@ class User extends \yii\db\ActiveRecord
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }  
+    
+    public function getImages()
+    {
+        /**
+         * 第一个参数为要关联的字表模型类名称，
+         * 第二个参数指定 通过子表的 id 去关联主表的 id 字段
+         */
+        return $this->hasOne(Images::className(), ['related_id' => 'id']);
     }    
 }

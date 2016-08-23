@@ -152,14 +152,14 @@ class RoleController extends Controller
             $model->updated_at = time();
             $model->save();
             
-            if($_POST['Role']['_roles']){
+            if(isset($_POST['Role']['_roles']) && !empty($_POST['Role']['_roles'])){
                 $_rolesList         = $_POST['Role']['_roles'];
                 foreach ($_rolesList as $val){
                     $this->savePermissions($model->name,$val);
                 }
             }
             
-            if($_POST['Role']['_permissions']){
+            if(isset($_POST['Role']['_permissions']) && !empty($_POST['Role']['_permissions'])){
                 $_permissionsList   = $_POST['Role']['_permissions'];
                 foreach ($_permissionsList as $val){
                     $this->savePermissions($model->name,$val);

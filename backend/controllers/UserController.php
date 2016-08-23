@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use mdm\admin\components\AccessControl;
+//use yii\base\Action;
+//use hyii2\avatar\CropAction;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -156,10 +158,20 @@ class UserController extends Controller
     public function actionProfile()
     {
         $id = Yii::$app->user->id;
-        $model = $this->findModel($id);
+        //$model = $this->findModel($id);
+        
+        $model = User::find()->joinWith('images')->where(['user.id'=>$id])->one();
+               
+        if(isset($model->images)){
+            $img = $model->images;
+        }else{
+            $img ='';
+        }
+
         return $this->render('profile', [
             'model' => $model,
-        ]);
+            'img' => $img,
+        ]); 
     }
 
     /**
@@ -177,4 +189,25 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actions()
+    {
+        return [
+            'crop'=>[
+                'class' => 'hyii2\avatar\CropAction',
+                'config'=>[
+                    'bigImageWidth' => '200',     //大图默认宽度
+                    'bigImageHeight' => '200',    //大图默认高度
+                    'middleImageWidth'=> '100',   //中图默认宽度
+                    'middleImageHeight'=> '100',  //中图图默认高度
+                    'smallImageWidth' => '50',    //小图默认宽度
+                    'smallImageHeight' => '50',   //小图默认高度
+                    //头像上传目录（注：目录前不能加"/"）
+                    'uploadPath' => '../../uploads/images/avatar',
+                    'model' => 'user',
+                ],
+            ]
+        ];
+    } 
+      
 }

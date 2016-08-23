@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use yii\helpers\ArrayHelper;
 
 /**
  * Site controller
@@ -60,6 +61,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        //print_r(ArrayHelper::toArray(Yii::$app->user->ind));
         return $this->render('index');
     }
 

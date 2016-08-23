@@ -1,8 +1,16 @@
 <?php
 use yii\helpers\Html;
-
+use backend\models\Images;
+use yii\helpers\Url;
 /* @var $this \yii\web\View */
 /* @var $content string */
+
+$avatar = Images::find()->where(['related_id'=>Yii::$app->user->id])->select('path_m,path_s')->one();
+if($avatar == null){
+    $avatar = (object)array();;
+    $avatar->path_s = DEFAULT_AVATAR;
+    $avatar->path_m = DEFAULT_AVATAR;
+}
 ?>
 
 <header class="main-header">
@@ -33,7 +41,7 @@ use yii\helpers\Html;
                                 <li><!-- start message -->
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
+                                            <img src="" class="img-circle"
                                                  alt="User Image"/>
                                         </div>
                                         <h4>
@@ -229,42 +237,42 @@ use yii\helpers\Html;
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <img src="<?= $avatar->path_s; ?>" class="user-image" alt="User Image"/>
+                        <span class="hidden-xs"><?= Yii::$app->user->identity->username ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
+                            <img src="<?= $avatar->path_m; ?>" class="img-circle"
                                  alt="User Image"/>
 
                             <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                <?= Yii::$app->user->identity->username ?>
+                                <small><?= Yii::t('backend', 'Created at').' '.Yii::$app->formatter->asDate(Yii::$app->user->identity->created_at,'Y-m-d') ?></small>
                             </p>
                         </li>
                         <!-- Menu Body -->
                         <li class="user-body">
                             <div class="col-xs-4 text-center">
-                                <a href="#">Followers</a>
+                                <a href="#"><?= Yii::t('backend', 'Followers') ?></a>
                             </div>
                             <div class="col-xs-4 text-center">
-                                <a href="#">Sales</a>
+                                <a href="#"><?= Yii::t('backend', 'Sales') ?></a>
                             </div>
                             <div class="col-xs-4 text-center">
-                                <a href="#">Friends</a>
+                                <a href="#"><?= Yii::t('backend', 'Friends') ?></a>
                             </div>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a href="<?=Url::toRoute('user/profile');?>" class="btn btn-primary btn-flat"><?=Yii::t('backend', 'Profile')?></a>
                             </div>
                             <div class="pull-right">
                                 <?= Html::a(
-                                    'Sign out',
+                                    Yii::t('backend', 'Sign out'),
                                     ['/site/logout'],
-                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                    ['data-method' => 'post', 'class' => 'btn btn-danger btn-flat']
                                 ) ?>
                             </div>
                         </li>

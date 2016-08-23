@@ -8,18 +8,17 @@ namespace hyii2\avatar;
 use Yii;
 use yii\bootstrap\Widget;
 use hyii2\avatar\assets\AvatarAsset;
+use yii\base\Object;
 
 class AvatarWidget extends Widget
-{
-    public function init()
-    {
-
-    }
+{    
+    public $imageUrl = '';
     
     public function run()
     {
         $this->registerClientScript();
-        return $this->render('index');
+        $model = new UploadForm();        
+        return $this->render('index',['model'=>$model]);
     }
     
     public function registerClientScript()

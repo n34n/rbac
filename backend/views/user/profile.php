@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use hyii2\avatar\AvatarWidget;
+use yii\helpers\ArrayHelper;
 
 $cssString = '.table-striped > tbody > tr:nth-of-type(odd) {
                   background-color: #e5e5e5;
@@ -17,8 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="box">
-  
+    
     <div class=" box-body">
+    <?= AvatarWidget::widget(['imageUrl'=> (isset($img) && $img!='')?$img->path_l:DEFAULT_AVATAR]); ?>
+    
     <?= DetailView::widget([
         'model' => $model,
         

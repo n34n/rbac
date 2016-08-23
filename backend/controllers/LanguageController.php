@@ -167,6 +167,7 @@ class LanguageController extends Controller
             $cookie->value = $language; //cookie的值
             Yii::$app->response->getCookies()->add($cookie);  
         }
+        //echo Yii::$app->request->headers['Referer'];die();
         $this->goBack(Yii::$app->request->headers['Referer']);
     }
 
@@ -184,7 +185,6 @@ class LanguageController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-    
+    }   
 
 }
