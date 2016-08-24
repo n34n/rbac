@@ -80,6 +80,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label' => Yii::t('backend', 'Username'),
                     //'enableSorting' => false,
                 ],
+            
+                'firstname' => [
+                    'attribute' => 'firstname',
+                    'label' => Yii::t('backend', 'Firstname'),
+                    //'enableSorting' => false,
+                ],
+                
+                'lastname' => [
+                    'attribute' => 'lastname',
+                    'label' => Yii::t('backend', 'Lastname'),
+                    //'enableSorting' => false,
+                ],            
                 
                  'email' => [
                      'attribute' => 'email',

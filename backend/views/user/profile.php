@@ -14,15 +14,23 @@ $this->registerCss($cssString);
 /* @var $model backend\models\User */
 
 $this->title = Yii::t('backend', 'Profile');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'My Account'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'My Account'), 'url' => ['profile']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="box">
-    
+<div class="col-md-3">
+<div class="box"> 
     <div class=" box-body">
     <?= AvatarWidget::widget(['imageUrl'=> (isset($img) && $img!='')?$img->path_l:DEFAULT_AVATAR]); ?>
-    
+    </div>
+      
+
+</div>
+</div>
+
+<div class="col-md-9">
+<div class="box"> 
+    <div class=" box-body">
     <?= DetailView::widget([
         'model' => $model,
         
@@ -32,6 +40,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('backend', 'Username'),
                 //'enableSorting' => false,
             ],
+            'firstname' => [
+                'attribute' => 'firstname',
+                'label' => Yii::t('backend', 'Firstname'),
+            ],
+            
+            'lastname' => [
+                'attribute' => 'lastname',
+                'label' => Yii::t('backend', 'Lastname'),
+            ],            
             'email' => [
                 'attribute' => 'email',
                 'label' => Yii::t('backend', 'Email'),
@@ -54,6 +71,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+    
     </div>
+    
+    <div class="box-header">
+        <?php
+        echo Html::a('<i class="fa fa-pencil"> </i> '.Yii::t('backend', 'Update').'', ['update-profile', 'id' => $model->id, 'act'=>''], ['class' => 'btn btn-primary btn-sm'])." ";
+        echo Html::a('<i class="fa fa-lock"> </i> '.Yii::t('backend', 'Change Password').'', ['update-profile', 'id' => $model->id, 'act'=>'-pwd'], ['class' => 'btn btn-warning btn-sm'])." ";    
+        ?>
+    </div>    
 
+</div>
 </div>

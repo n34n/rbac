@@ -5,6 +5,7 @@ use yii\helpers\Html;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+
 $_confirm = Yii::t('backend', 'Confirm');
 $_cancel = Yii::t('backend', 'Cancel');
 $this->registerJs("var _confirm = '$_confirm';");

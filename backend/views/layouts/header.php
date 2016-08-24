@@ -238,7 +238,15 @@ if($avatar == null){
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="<?= $avatar->path_s; ?>" class="user-image" alt="User Image"/>
-                        <span class="hidden-xs"><?= Yii::$app->user->identity->username ?></span>
+                        <span class="hidden-xs">
+                        <?php
+                        if(Yii::$app->language == 'zh'){
+                            $displayName = Yii::$app->user->identity->lastname.Yii::$app->user->identity->firstname;
+                        }else{
+                            $displayName = Yii::$app->user->identity->firstname.' '.Yii::$app->user->identity->lastname;
+                        }
+                        echo $displayName;
+                        ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -247,7 +255,7 @@ if($avatar == null){
                                  alt="User Image"/>
 
                             <p>
-                                <?= Yii::$app->user->identity->username ?>
+                                <?= $displayName ?> // <?= Yii::$app->user->identity->username; ?>
                                 <small><?= Yii::t('backend', 'Created at').' '.Yii::$app->formatter->asDate(Yii::$app->user->identity->created_at,'Y-m-d') ?></small>
                             </p>
                         </li>

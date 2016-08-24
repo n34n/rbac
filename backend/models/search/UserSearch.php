@@ -77,6 +77,8 @@ class UserSearch extends User
 
         $skey = Yii::$app->request->get('UserSearch')['skey'];
         $query->andFilterWhere(['like', 'username',  $skey]);
+        $query->orFilterWhere(['like', 'firstname',  $skey]);
+        $query->orFilterWhere(['like', 'lastname',  $skey]);
         $query->orFilterWhere(['like', 'email',  $skey]);
         $query->orFilterWhere(['like', 'mobile',  $skey]);
 

@@ -41,6 +41,11 @@ class User extends \yii\db\ActiveRecord
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\backend\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 4, 'max' => 20],
+            
+            ['firstname', 'required'],
+            ['lastname', 'required'],
+            ['firstname', 'string', 'max' => 50],
+            ['lastname', 'string', 'max' => 50],
         
             ['email', 'trim'],
             ['email', 'required'],

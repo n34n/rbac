@@ -127,11 +127,36 @@ class UserController extends Controller
         }
     }
     
+    /**
+     * Updates an existing User model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdateProfile($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->updated_at = time();
+            if(isset($_POST['User']['password']) && $_POST['User']['password']!=''){
+                $model->password = $model->setPassword($_POST['User']['password']);
+            }
+            $model->save();
+            return $this->redirect(['profile']);
+        } else {
+            $action = Yii::$app->controller->action->id.$_GET['act'];
+            return $this->render($action, [
+                'model' => $model,
+            ]);
+        }
+    }  
+    
     public function actionChangepwd($id)
     {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->updated_at = time();
+            $model->password = $model->setPassword($_POST['User']['password']);
             $model->save();
             return $this->redirect(['index']);
         } else {
@@ -139,7 +164,7 @@ class UserController extends Controller
                 'model' => $model,
             ]);
         }
-    }    
+    }
 
     /**
      * Deletes an existing User model.
