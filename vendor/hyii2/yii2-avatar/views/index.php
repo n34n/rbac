@@ -2,6 +2,7 @@
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
+use kartik\file\FileInput;
 ?>
 <div id="crop-avatar">
     <div class="avatar-view">
@@ -16,7 +17,7 @@ use yii\bootstrap\Html;
           <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'class'=>'avatar-form'],'action'=>['crop']]) ?>
           <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title" id="avatar-modal-label">头像上传</h4>
+              <h4 class="modal-title" id="avatar-modal-label"><?=Yii::t('backend', 'Upload avatar')?></h4>
           </div>
           <div class="modal-body">
               <div class="avatar-body">
@@ -25,8 +26,20 @@ use yii\bootstrap\Html;
                 <div class="avatar-upload">
                   <input type="hidden" class="avatar-src" name="avatar_src">
                   <input type="hidden" class="avatar-data" name="<?=Html::getInputName($model, 'avatarData')?>">
-                  <label for="avatarInput">本地上传：</label>
-                  <input type="file" class="avatar-input" id="avatarInput" name="<?=Html::getInputName($model, 'imageFile')?>">
+      
+                <?php 
+                echo $form->field($model, 'imageFile')->label(false)->widget(FileInput::classname(), [
+                    'name' => 'imageFile',
+                    'options' => ['accept' => 'image/*','id' => 'avatarInput','class' => 'avatar-input',],
+                    'pluginOptions' => [
+                        'showPreview' => false,
+                        'showCaption' => true,
+                        'showRemove' => false,
+                        'showUpload' => false,
+                    ]
+                ]);
+                ?>
+                
                 </div>
                 
                 <!-- Crop and preview -->
@@ -43,7 +56,7 @@ use yii\bootstrap\Html;
 
                 <div class="row avatar-btns">
                   <div class="col-md-3">
-                    <button type="submit" class="btn btn-hyii btn-block avatar-save">上传</button>
+                    <button type="submit" class="btn btn-warning btn-block avatar-save"><?=Yii::t('backend', 'Upload')?></button>
                   </div>
                 </div>
               </div>

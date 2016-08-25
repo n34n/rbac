@@ -79,7 +79,6 @@
 
     initPreview: function () {
       var url = this.$avatar.attr('src');
-
       this.$avatarPreview.html('<img src="' + url + '">');
     },
 
