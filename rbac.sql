@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-08-26 06:56:11
+-- Generation Time: 2016-08-26 07:21:52
 -- 服务器版本： 5.5.39
 -- PHP Version: 5.5.36
 
@@ -742,7 +742,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `firstname`, `lastname`, `email`, `mobile`, `role`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'Nq6tl49ojP3-Voi3VZlRS1nTYOW90kv1', '$2y$13$2mgGWqU/q9jqN1IrRFzjVu.ekVn4ANeBEQxcIIEs.JWARQLGLAJsW', NULL, '兆武', '许', '34n@163.com', '18602163311', 10, 10, 1470204476, 1472030815),
+(1, 'admin', 'Nq6tl49ojP3-Voi3VZlRS1nTYOW90kv1', '$2y$13$mrcmYA6N15zzx88apt1KZu0c3Da7Vz6dqD72nVSjlAdTm8N.BynB.', NULL, '兆武', '许', '34n@163.com', '18602163311', 10, 10, 1470204476, 1472195055),
 (4, 'view', '0WydP_8k2TThuHXBWaV6OtHHtJLa1qM6', '$2y$13$iDNCBZekS9T4.sm4mFzdpuFgP1oIQM9LW8sM81bGtuumFzDnzRxEu', NULL, '吹雪', '西门', 'view@nxshop.com', '18602100000', 10, 10, 1470316330, 1472007663),
 (5, 'editor', '27saqcGR64flNOqy6v0iTKaS6XQ38eXb', '$2y$13$r.bpjS6JQ0/iVSVJ3XfdweBa4b9pY.TFWeQGRw2yw4wMJDMalxKkK', NULL, '峰', '乔', 'editor@admin.com', '18602100001', 10, 10, 1470316424, 1472007695),
 (6, 'manager', 'J5b8DaLY2gTEt5i5lhQ4bJyT5IUQ6j9U', '$2y$13$jS5v2E6kXap7n656zB3.EedIkp6WjSRZ5WM8manmmHdM7JKDtRNrm', NULL, '青山', '慕容', 'manager@admin.com', '18602100003', 10, 10, 1470316461, 1472007755),
@@ -771,7 +771,7 @@ CREATE TABLE IF NOT EXISTS `user_log` (
   `get` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'get参数',
   `post` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'post参数',
   `log_time` int(11) NOT NULL COMMENT '日期'
-) ENGINE=InnoDB AUTO_INCREMENT=3645 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3653 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- 转存表中的数据 `user_log`
@@ -4442,7 +4442,15 @@ INSERT INTO `user_log` (`id`, `username`, `action`, `url`, `ip`, `agent`, `get`,
 (3641, 'admin', 'Route to run: site/login', 'http://localhost/rbac/backend/web/index.php?r=site%2Flogin', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '{"r":"site\\/login"}', '{"_csrf-backend":"V1JjRVdUaW0.FTtoFg4zOiAwNwAnHAs9HwQPJm5iCCEhDQQ9JTAHDA==","LoginForm":{"username":"admin","password":"niu23613","rememberMe":"1"},"login-button":""}', 1472186293),
 (3642, 'admin', 'Route to run: site/index', 'http://localhost/rbac/backend/web/index.php', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '[]', '[]', 1472186293),
 (3643, 'admin', 'Route to run: language/change', 'http://localhost/rbac/backend/web/index.php?r=language%2Fchange&id=en', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '{"r":"language\\/change","id":"en"}', '[]', 1472186299),
-(3644, 'admin', 'Route to run: site/index', 'http://localhost/rbac/backend/web/index.php', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '[]', '[]', 1472186299);
+(3644, 'admin', 'Route to run: site/index', 'http://localhost/rbac/backend/web/index.php', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '[]', '[]', 1472186299),
+(3645, 'admin', 'Route to run: site/login', 'http://localhost/rbac/backend/web/index.php?r=site%2Flogin', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '{"r":"site\\/login"}', '{"_csrf-backend":"M29Zaklva2daKAFHCDUxMEQNDS85Jwk3ezk1CXBZCitFMD4SOwsFBg==","LoginForm":{"username":"admin","password":"niu23613","rememberMe":"1"},"login-button":""}', 1472195035),
+(3646, 'admin', 'Route to run: site/index', 'http://localhost/rbac/backend/web/index.php', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '[]', '[]', 1472195036),
+(3647, 'admin', 'Route to run: user/profile', 'http://localhost/rbac/backend/web/index.php?r=user%2Fprofile', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '{"r":"user\\/profile"}', '[]', 1472195042),
+(3648, 'admin', 'Route to run: user/update-profile', 'http://localhost/rbac/backend/web/index.php?r=user%2Fupdate-profile&id=1&act=-pwd', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '{"r":"user\\/update-profile","id":"1","act":"-pwd"}', '[]', 1472195049),
+(3649, 'admin', 'Route to run: user/update-profile', 'http://localhost/rbac/backend/web/index.php?r=user%2Fupdate-profile&id=1&act=-pwd', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '{"r":"user\\/update-profile","id":"1","act":"-pwd"}', '{"_csrf-backend":"YUdCTDM0bU0IABphcm43GhYlFglDfA8dKREuLwoCDAEXGCU0QVADLA==","User":{"password":"password"}}', 1472195056),
+(3650, 'admin', 'Route to run: user/profile', 'http://localhost/rbac/backend/web/index.php?r=user%2Fprofile', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '{"r":"user\\/profile"}', '[]', 1472195056),
+(3651, 'admin', 'Route to run: site/login', 'http://localhost/rbac/backend/web/index.php?r=site%2Flogin', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '{"r":"site\\/login"}', '{"_csrf-backend":"MFpxZ2xudzJZHSlKLTQtZUc4JSIcJhVieAwdBFVYFn5GBRYfHgoZUw==","LoginForm":{"username":"admin","password":"password","rememberMe":"1"},"login-button":""}', 1472195070),
+(3652, 'admin', 'Route to run: site/index', 'http://localhost/rbac/backend/web/index.php', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0', '[]', '[]', 1472195070);
 
 --
 -- Indexes for dumped tables
@@ -4575,7 +4583,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',AUTO_INCREMENT=19;
 -- AUTO_INCREMENT for table `user_log`
 --
 ALTER TABLE `user_log`
-MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3645;
+MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3653;
 --
 -- 限制导出的表
 --

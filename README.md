@@ -1,54 +1,44 @@
-Yii 2 Advanced Project Template
-===============================
+NXshop Backend
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
+=================================================
+Description
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+The backend app is base on AdminLTE template and include RBAC.
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
+main function list
+-- RBAC
+------ User management
+------ Role management
+------ Menu control
+------ Route control
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+-- System Setting
+------ Language setup
+------ User log record
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-advanced/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-advanced/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-advanced.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-advanced)
+The backend is easy to install, and for new project is easier to extend new modules base on it, it will make you develop a new project faster and faster.
 
-DIRECTORY STRUCTURE
--------------------
 
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-tests                    contains various tests for the advanced application
-    codeception/         contains tests developed with Codeception PHP Testing Framework
-```
+=================================================
+Install
+
+The best way to install this backend app is clone the code, and doing only two steps see below
+
+1) import rbac.sql to your database;
+
+2) insert two lines code before $application->run();
+[code]
+$cookie = Yii::$app->request->cookies;
+$application->language = $cookie->has('language') ? $cookie->getValue('language') : 'en';
+[/code]
+
+The code is for backend language, default it is english version. 
+
+
+=================================================
+Visit Backend
+
+visit by http://webroot/backend/web/
+username: admin
+password: password
+
