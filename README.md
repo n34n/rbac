@@ -30,7 +30,7 @@ The backend is easy to install, and for new project is easier to extend new modu
 =================================================
 Install
 
-The best way to install this backend app is clone the code, and doing only two steps see below
+The best way to install this backend app is clone the code or download source code into your site, and doing only two steps see below
 
 1) import rbac.sql to your database;
 
