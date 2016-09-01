@@ -167,8 +167,8 @@ class LanguageController extends Controller
             $cookie->value = $language; //cookie的值
             Yii::$app->response->getCookies()->add($cookie);  
         }
-        //echo Yii::$app->request->headers['Referer'];die();
-        $this->goBack(Yii::$app->request->headers['Referer']);
+
+        $this->redirect(Yii::$app->request->headers['Referer']);
     }
 
     /**
