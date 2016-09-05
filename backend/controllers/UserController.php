@@ -95,12 +95,26 @@ class UserController extends Controller
             $model->status = $_POST['User']['status'];
             $model->created_at = $model->updated_at = time();
             $model->save();
+
+            //header("Content-type:text/html;charset=utf-8");
+            $userid  = $model->getPrimaryKey();
+            $manager = Yii::$app->getAuthManager();
+            if(isset($_POST['User']['_roles']) && !empty($_POST['User']['_roles'])){
+                foreach ($_POST['User']['_roles'] as $_role) {
+                    $role =Yii::$app->authManager->getRole($_role);
+                    $manager->assign($role,$userid);
+                }            
+            }
+
             return $this->redirect(['index']);
         }else{
+            $manager = Yii::$app->getAuthManager();
+            $roles = $manager->getRoles();
             $errors = $model->errors;
         }
         
         return $this->render('create', [
+            'roles' => $roles,
             'model' => $model,
         ]);            
 
@@ -119,10 +133,26 @@ class UserController extends Controller
             $model->status = $_POST['User']['status'];
             $model->updated_at = time();
             $model->save();
+
+            $manager = Yii::$app->getAuthManager();
+            $manager->revokeAll($id);
+            if(isset($_POST['User']['_roles']) && !empty($_POST['User']['_roles'])){
+                foreach ($_POST['User']['_roles'] as $_role) {
+                    $role =Yii::$app->authManager->getRole($_role);
+                    $manager->assign($role,$id);
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $manager        = Yii::$app->getAuthManager();
+            $roles          = $manager->getRoles();
+            $roleschecked   = $manager->getRolesByUser($id);
+            //print_r($roleschecked);die();
             return $this->render('update', [
                 'model' => $model,
+                'roles' => $roles,
+                'roleschecked'  => $roleschecked,
             ]);
         }
     }
@@ -142,6 +172,7 @@ class UserController extends Controller
                 $model->password = $model->setPassword($_POST['User']['password']);
             }
             $model->save();
+
             return $this->redirect(['profile']);
         } else {
             $action = Yii::$app->controller->action->id.$_GET['act'];

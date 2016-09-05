@@ -63,11 +63,17 @@ use yii\helpers\ArrayHelper;
     <div class="col-md-6">
         <div class="box box-warning">
         <div class="box-body">
-            <?php $roles= ArrayHelper::map($roles,'name','name'); ?>
-            <?= $form->field($model, '_roles')->checkboxList($roles,[
-                'class'=> 'checkbox',
-                'separator' => '<br/>',
-            ])->label(Yii::t('backend', 'Roles')); ?>
+            <div class="form-group field-user-_roles">
+                <label class="col-sm-2 control-label"><?= Yii::t('backend', 'Roles') ?></label>
+                <div class="col-sm-10">
+                <?php $roles= ArrayHelper::map($roles,'name','name'); ?>
+                <?php $roleschecked= ArrayHelper::map($roleschecked,'name','name'); ?>
+                <?= Html::checkboxList('User[_roles]',$roleschecked,$roles,[
+                    'class'=> 'checkbox',
+                    'separator' => '<br/>',
+                ]) ?>
+            </div>
+            </div>
         </div>
         </div>
     </div>

@@ -25,6 +25,7 @@ class User extends \yii\db\ActiveRecord
      */
     public $password;
     public $avatar;
+    public $_roles;
     
     public static function tableName()
     {
